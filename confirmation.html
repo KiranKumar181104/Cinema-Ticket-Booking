@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Confirmed - CineBook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <h1><a href="index.html">CineBook</a></h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="movies.html">Movies</a></li>
+                    <li><a href="cinemas.html">Cinemas</a></li>
+                    <li><a href="offers.html">Offers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="confirmation-section">
+        <div class="container">
+            <div class="confirmation-container">
+                <div class="confirmation-icon">
+                    <i class="fas fa-check-circle"></i>
+                </div>
+                <h2>Booking Confirmed!</h2>
+                <p>Your tickets have been booked successfully.</p>
+                <div class="confirmation-details">
+                    <p>Booking ID: <span id="booking-id"></span></p>
+                    <p>Movie: <span id="confirmation-movie"></span></p>
+                    <p>Cinema: <span id="confirmation-cinema"></span></p>
+                    <p>Time: <span id="confirmation-time"></span></p>
+                    <p>Seats: <span id="confirmation-seats"></span></p>
+                </div>
+                <button class="btn" id="print-btn">Print Tickets</button>
+                <a href="index.html" class="btn secondary">Back to Home</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About CineBook</h3>
+                    <p>Book your movie tickets online and enjoy the best cinema experience.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="movies.html">Movies</a></li>
+                        <li><a href="cinemas.html">Cinemas</a></li>
+                        <li><a href="offers.html">Offers</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p>Email: info@cinebook.com</p>
+                    <p>Phone: +1 234 567 8900</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 CineBook. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            
+            hamburger.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+            
+            // Generate random booking ID
+            const bookingId = 'CB-' + Math.floor(Math.random() * 1000000);
+            document.getElementById('booking-id').textContent = bookingId;
+            
+            // Load booking details from sessionStorage
+            const selectedMovie = JSON.parse(sessionStorage.getItem('selectedMovie'));
+            const selectedCinema = sessionStorage.getItem('selectedCinema');
+            const selectedTime = sessionStorage.getItem('selectedTime');
+            const selectedSeats = JSON.parse(sessionStorage.getItem('selectedSeats')) || [];
+            
+            if (selectedMovie && selectedCinema && selectedTime && selectedSeats.length > 0) {
+                document.getElementById('confirmation-movie').textContent = selectedMovie.title;
+                document.getElementById('confirmation-cinema').textContent = selectedCinema;
+                document.getElementById('confirmation-time').textContent = selectedTime;
+                document.getElementById('confirmation-seats').textContent = selectedSeats.join(', ');
+                
+                // Clear booking data from sessionStorage
+                sessionStorage.removeItem('selectedMovie');
+                sessionStorage.removeItem('selectedCinema');
+                sessionStorage.removeItem('selectedTime');
+                sessionStorage.removeItem('selectedSeats');
+            } else {
+                // Missing booking details, redirect to home page
+                window.location.href = 'index.html';
+            }
+            
+            // Print tickets
+            document.getElementById('print-btn').addEventListener('click', function() {
+                window.print();
+            });
+        });
+    </script>
+</body>
+</html>
