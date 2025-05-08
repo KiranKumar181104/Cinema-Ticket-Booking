@@ -168,6 +168,7 @@
                     
                     // Store selected movie in sessionStorage
                     sessionStorage.setItem('selectedMovie', JSON.stringify(selectedMovie));
+                    sessionStorage.setItem('seatPrice', selectedMovie.price.toString());
                 } else {
                     // Movie not found, redirect to movies page
                     window.location.href = 'movies.html';
@@ -183,6 +184,13 @@
                 const selectedCinema = this.value;
                 
                 if (selectedCinema) {
+                    // Store cinema data
+                    const cinemaData = {
+                        id: selectedCinema,
+                        name: cinemaSelect.options[cinemaSelect.selectedIndex].text
+                    };
+                    sessionStorage.setItem('selectedCinema', JSON.stringify(cinemaData));
+                    
                     // Generate time slots
                     const timeSlots = document.getElementById('time-slots');
                     timeSlots.innerHTML = '';
@@ -198,12 +206,11 @@
                             });
                             this.classList.add('selected');
                             
-                            // Store selected time and cinema
+                            // Store selected time
                             sessionStorage.setItem('selectedTime', this.textContent);
-                            sessionStorage.setItem('selectedCinema', cinemaSelect.options[cinemaSelect.selectedIndex].text);
                             
                             generateSeats();
-                            updateSummary();
+                            updateProceedButton();
                         });
                         timeSlots.appendChild(timeSlot);
                     });
@@ -253,6 +260,7 @@
                             sessionStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
                             
                             updateSummary();
+                            updateProceedButton();
                         });
                         
                         seatsContainer.appendChild(seat);
@@ -263,16 +271,17 @@
             // Update booking summary
             function updateSummary() {
                 const selectedMovie = JSON.parse(sessionStorage.getItem('selectedMovie'));
-                const selectedCinema = sessionStorage.getItem('selectedCinema');
+                const selectedCinema = JSON.parse(sessionStorage.getItem('selectedCinema'));
                 const selectedTime = sessionStorage.getItem('selectedTime');
                 const selectedSeats = JSON.parse(sessionStorage.getItem('selectedSeats')) || [];
+                const seatPrice = parseInt(sessionStorage.getItem('seatPrice')) || 12;
                 
                 if (selectedMovie) {
                     document.getElementById('summary-movie').textContent = selectedMovie.title;
                 }
                 
                 if (selectedCinema) {
-                    document.getElementById('summary-cinema').textContent = selectedCinema;
+                    document.getElementById('summary-cinema').textContent = selectedCinema.name;
                 }
                 
                 if (selectedTime) {
@@ -285,20 +294,35 @@
                     document.getElementById('summary-seats').textContent = 'None selected';
                 }
                 
-                const seatPrice = 12;
                 const total = selectedSeats.length * seatPrice;
                 document.getElementById('summary-total').textContent = `$${total}`;
+            }
+            
+            // Update proceed button state
+            function updateProceedButton() {
+                const proceedBtn = document.getElementById('proceed-btn');
+                const selectedMovie = JSON.parse(sessionStorage.getItem('selectedMovie'));
+                const selectedCinema = JSON.parse(sessionStorage.getItem('selectedCinema'));
+                const selectedTime = sessionStorage.getItem('selectedTime');
+                const selectedSeats = JSON.parse(sessionStorage.getItem('selectedSeats')) || [];
                 
-                // Enable proceed button if seats are selected
-                if (selectedSeats.length > 0) {
-                    document.getElementById('proceed-btn').classList.remove('disabled');
+                if (selectedMovie && selectedCinema && selectedTime && selectedSeats.length > 0) {
+                    proceedBtn.classList.remove('disabled');
+                    proceedBtn.onclick = function() {
+                        window.location.href = 'payment.html';
+                    };
                 } else {
-                    document.getElementById('proceed-btn').classList.add('disabled');
+                    proceedBtn.classList.add('disabled');
+                    proceedBtn.onclick = function(e) {
+                        e.preventDefault();
+                        alert('Please complete all booking details before proceeding');
+                    };
                 }
             }
             
-            // Initialize summary
+            // Initialize summary and button state
             updateSummary();
+            updateProceedButton();
         });
     </script>
 </body>
