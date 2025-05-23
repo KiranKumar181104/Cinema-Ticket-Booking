@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Tickets - CineBook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <h1><a href="index.html">CineBook</a></h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="movies.html">Movies</a></li>
+                    <li><a href="cinemas.html">Cinemas</a></li>
+                    <li><a href="offers.html">Offers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="booking-process">
+        <div class="container">
+            <h2>Book Your Tickets</h2>
+            <div class="process-container">
+                <div class="step active" id="step1">
+                    <div class="step-number">1</div>
+                    <h3>Choose Movie</h3>
+                    <p>Select your favorite movie</p>
+                </div>
+                <div class="step" id="step2">
+                    <div class="step-number">2</div>
+                    <h3>Select Seats</h3>
+                    <p>Pick your preferred seats</p>
+                </div>
+                <div class="step" id="step3">
+                    <div class="step-number">3</div>
+                    <h3>Checkout</h3>
+                    <p>Make payment and get tickets</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="booking-details">
+        <div class="container">
+            <div class="booking-container">
+                <div class="movie-info">
+                    <img id="selected-movie-poster" src="" alt="Movie Poster">
+                    <div>
+                        <h3 id="selected-movie-title"></h3>
+                        <p id="selected-movie-duration"></p>
+                        <p id="selected-movie-genre"></p>
+                    </div>
+                </div>
+                
+                <div class="cinema-selection">
+                    <h3>Select Cinema & Time</h3>
+                    <select id="cinema-select">
+                        <option value="">Select Cinema</option>
+                        <option value="cineplex-downtown">Cineplex Downtown</option>
+                        <option value="cineplex-mall">Cineplex Mall</option>
+                        <option value="cineplex-premium">Cineplex Premium</option>
+                    </select>
+                    <div class="time-slots" id="time-slots">
+                        <!-- Time slots will be loaded here -->
+                    </div>
+                </div>
+                
+                <div class="seat-selection">
+                    <h3>Select Seats</h3>
+                    <div class="screen">Screen</div>
+                    <div class="seats-container" id="seats-container">
+                        <!-- Seats will be loaded here -->
+                    </div>
+                    <div class="seat-legend">
+                        <div class="legend-item">
+                            <div class="seat available"></div>
+                            <span>Available</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="seat selected"></div>
+                            <span>Selected</span>
+                        </div>
+                        <div class="legend-item">
+                            <div class="seat occupied"></div>
+                            <span>Occupied</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="booking-summary">
+                    <h3>Booking Summary</h3>
+                    <div class="summary-details">
+                        <p>Movie: <span id="summary-movie"></span></p>
+                        <p>Cinema: <span id="summary-cinema"></span></p>
+                        <p>Time: <span id="summary-time"></span></p>
+                        <p>Seats: <span id="summary-seats"></span></p>
+                        <p>Total: <span id="summary-total"></span></p>
+                    </div>
+                    <a href="payment.html" class="btn" id="proceed-btn">Proceed to Payment</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About CineBook</h3>
+                    <p>Book your movie tickets online and enjoy the best cinema experience.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="movies.html">Movies</a></li>
+                        <li><a href="cinemas.html">Cinemas</a></li>
+                        <li><a href="offers.html">Offers</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p>Email: info@cinebook.com</p>
+                    <p>Phone: +1 234 567 8900</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 CineBook. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Mobile menu toggle
+            const hamburger = document.querySelector('.hamburger');
+            const navLinks = document.querySelector('.nav-links');
+            
+            hamburger.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+            });
+            
+            // Get movie ID from URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const movieId = parseInt(urlParams.get('movie'));
+            
+            if (movieId) {
+                const selectedMovie = movies.find(movie => movie.id === movieId);
+                
+                if (selectedMovie) {
+                    // Update movie info
+                    document.getElementById('selected-movie-poster').src = selectedMovie.poster;
+                    document.getElementById('selected-movie-title').textContent = selectedMovie.title;
+                    document.getElementById('selected-movie-duration').textContent = selectedMovie.duration;
+                    document.getElementById('selected-movie-genre').textContent = selectedMovie.genre;
+                    document.getElementById('summary-movie').textContent = selectedMovie.title;
+                    
+                    // Store selected movie in sessionStorage
+                    sessionStorage.setItem('selectedMovie', JSON.stringify(selectedMovie));
+                    sessionStorage.setItem('seatPrice', selectedMovie.price.toString());
+                } else {
+                    // Movie not found, redirect to movies page
+                    window.location.href = 'movies.html';
+                }
+            } else {
+                // No movie selected, redirect to movies page
+                window.location.href = 'movies.html';
+            }
+            
+            // Cinema selection
+            const cinemaSelect = document.getElementById('cinema-select');
+            cinemaSelect.addEventListener('change', function() {
+                const selectedCinema = this.value;
+                
+                if (selectedCinema) {
+                    // Store cinema data
+                    const cinemaData = {
+                        id: selectedCinema,
+                        name: cinemaSelect.options[cinemaSelect.selectedIndex].text
+                    };
+                    sessionStorage.setItem('selectedCinema', JSON.stringify(cinemaData));
+                    
+                    // Generate time slots
+                    const timeSlots = document.getElementById('time-slots');
+                    timeSlots.innerHTML = '';
+                    
+                    const times = ['10:00 AM', '1:30 PM', '4:00 PM', '6:30 PM', '9:00 PM'];
+                    times.forEach(time => {
+                        const timeSlot = document.createElement('div');
+                        timeSlot.className = 'time-slot';
+                        timeSlot.textContent = time;
+                        timeSlot.addEventListener('click', function() {
+                            document.querySelectorAll('.time-slot').forEach(slot => {
+                                slot.classList.remove('selected');
+                            });
+                            this.classList.add('selected');
+                            
+                            // Store selected time
+                            sessionStorage.setItem('selectedTime', this.textContent);
+                            
+                            generateSeats();
+                            updateProceedButton();
+                        });
+                        timeSlots.appendChild(timeSlot);
+                    });
+                    
+                    // Update active step
+                    document.getElementById('step1').classList.remove('active');
+                    document.getElementById('step1').querySelector('.step-number').innerHTML = '<i class="fas fa-check"></i>';
+                    document.getElementById('step2').classList.add('active');
+                }
+            });
+            
+            // Seat selection
+            function generateSeats() {
+                const seatsContainer = document.getElementById('seats-container');
+                seatsContainer.innerHTML = '';
+                
+                // Generate seats (5 rows x 10 seats)
+                for (let row = 1; row <= 5; row++) {
+                    for (let seatNum = 1; seatNum <= 10; seatNum++) {
+                        const seat = document.createElement('div');
+                        seat.className = 'seat available';
+                        seat.textContent = `${String.fromCharCode(64 + row)}${seatNum}`;
+                        
+                        // Randomly occupy some seats
+                        if (Math.random() < 0.3) {
+                            seat.classList.remove('available');
+                            seat.classList.add('occupied');
+                        }
+                        
+                        seat.addEventListener('click', function() {
+                            if (this.classList.contains('occupied')) return;
+                            
+                            this.classList.toggle('selected');
+                            const seatId = this.textContent;
+                            
+                            let selectedSeats = JSON.parse(sessionStorage.getItem('selectedSeats')) || [];
+                            
+                            if (this.classList.contains('selected')) {
+                                if (!selectedSeats.includes(seatId)) {
+                                    selectedSeats.push(seatId);
+                                }
+                            } else {
+                                selectedSeats = selectedSeats.filter(s => s !== seatId);
+                            }
+                            
+                            // Store selected seats
+                            sessionStorage.setItem('selectedSeats', JSON.stringify(selectedSeats));
+                            
+                            updateSummary();
+                            updateProceedButton();
+                        });
+                        
+                        seatsContainer.appendChild(seat);
+                    }
+                }
+            }
+            
+            // Update booking summary
+            function updateSummary() {
+                const selectedMovie = JSON.parse(sessionStorage.getItem('selectedMovie'));
+                const selectedCinema = JSON.parse(sessionStorage.getItem('selectedCinema'));
+                const selectedTime = sessionStorage.getItem('selectedTime');
+                const selectedSeats = JSON.parse(sessionStorage.getItem('selectedSeats')) || [];
+                const seatPrice = parseInt(sessionStorage.getItem('seatPrice')) || 12;
+                
+                if (selectedMovie) {
+                    document.getElementById('summary-movie').textContent = selectedMovie.title;
+                }
+                
+                if (selectedCinema) {
+                    document.getElementById('summary-cinema').textContent = selectedCinema.name;
+                }
+                
+                if (selectedTime) {
+                    document.getElementById('summary-time').textContent = selectedTime;
+                }
+                
+                if (selectedSeats.length > 0) {
+                    document.getElementById('summary-seats').textContent = selectedSeats.join(', ');
+                } else {
+                    document.getElementById('summary-seats').textContent = 'None selected';
+                }
+                
+                const total = selectedSeats.length * seatPrice;
+                document.getElementById('summary-total').textContent = `$${total}`;
+            }
+            
+            // Update proceed button state
+            function updateProceedButton() {
+                const proceedBtn = document.getElementById('proceed-btn');
+                const selectedMovie = JSON.parse(sessionStorage.getItem('selectedMovie'));
+                const selectedCinema = JSON.parse(sessionStorage.getItem('selectedCinema'));
+                const selectedTime = sessionStorage.getItem('selectedTime');
+                const selectedSeats = JSON.parse(sessionStorage.getItem('selectedSeats')) || [];
+                
+                if (selectedMovie && selectedCinema && selectedTime && selectedSeats.length > 0) {
+                    proceedBtn.classList.remove('disabled');
+                    proceedBtn.onclick = function() {
+                        window.location.href = 'payment.html';
+                    };
+                } else {
+                    proceedBtn.classList.add('disabled');
+                    proceedBtn.onclick = function(e) {
+                        e.preventDefault();
+                        alert('Please complete all booking details before proceeding');
+                    };
+                }
+            }
+            
+            // Initialize summary and button state
+            updateSummary();
+            updateProceedButton();
+        });
+    </script>
+</body>
+</html>

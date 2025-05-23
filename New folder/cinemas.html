@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Cinemas - CineBook</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <h1><a href="index.html">CineBook</a></h1>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="movies.html">Movies</a></li>
+                    <li><a href="cinemas.html" class="active">Cinemas</a></li>
+                    <li><a href="offers.html">Offers</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+                <div class="hamburger">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="cinemas">
+        <div class="container">
+            <h2>Our Cinemas</h2>
+            <div class="cinema-grid">
+                <div class="cinema-card">
+                    <div class="cinema-image" style="background-image: url('https://via.placeholder.com/600x400?text=Cineplex+Downtown');"></div>
+                    <div class="cinema-info">
+                        <h3>Cineplex Downtown</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> 123 Main St, City Center</p>
+                        <p><i class="fas fa-phone"></i> (555) 123-4567</p>
+                        <p><i class="fas fa-clock"></i> Open daily: 10:00 AM - 11:00 PM</p>
+                        <div class="cinema-features">
+                            <span><i class="fas fa-wheelchair"></i> Accessible</span>
+                            <span><i class="fas fa-utensils"></i> Food Court</span>
+                            <span><i class="fas fa-car"></i> Parking</span>
+                        </div>
+                        <a href="booking.html" class="btn">Book Now</a>
+                    </div>
+                </div>
+                
+                <div class="cinema-card">
+                    <div class="cinema-image" style="background-image: url('https://via.placeholder.com/600x400?text=Cineplex+Mall');"></div>
+                    <div class="cinema-info">
+                        <h3>Cineplex Mall</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> 456 Shopping Ave, Mall District</p>
+                        <p><i class="fas fa-phone"></i> (555) 234-5678</p>
+                        <p><i class="fas fa-clock"></i> Open daily: 9:00 AM - 12:00 AM</p>
+                        <div class="cinema-features">
+                            <span><i class="fas fa-wheelchair"></i> Accessible</span>
+                            <span><i class="fas fa-shopping-bag"></i> Mall Access</span>
+                            <span><i class="fas fa-car"></i> Parking</span>
+                        </div>
+                        <a href="booking.html" class="btn">Book Now</a>
+                    </div>
+                </div>
+                
+                <div class="cinema-card">
+                    <div class="cinema-image" style="background-image: url('https://via.placeholder.com/600x400?text=Cineplex+Premium');"></div>
+                    <div class="cinema-info">
+                        <h3>Cineplex Premium</h3>
+                        <p><i class="fas fa-map-marker-alt"></i> 789 Luxury Blvd, Uptown</p>
+                        <p><i class="fas fa-phone"></i> (555) 345-6789</p>
+                        <p><i class="fas fa-clock"></i> Open daily: 11:00 AM - 10:00 PM</p>
+                        <div class="cinema-features">
+                            <span><i class="fas fa-couch"></i> Luxury Seating</span>
+                            <span><i class="fas fa-wine-glass-alt"></i> Bar Service</span>
+                            <span><i class="fas fa-car"></i> Valet Parking</span>
+                        </div>
+                        <a href="booking.html" class="btn">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cinema-map">
+        <div class="container">
+            <h2>Find Us</h2>
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.215209132773!2d-73.9878446845938!3d40.74844027932793!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDQ0JzU0LjQiTiA3M8KwNTknMTMuNiJX!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus" 
+                        width="100%" 
+                        height="450" 
+                        style="border:0;" 
+                        allowfullscreen="" 
+                        loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>About CineBook</h3>
+                    <p>Book your movie tickets online and enjoy the best cinema experience.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="movies.html">Movies</a></li>
+                        <li><a href="cinemas.html">Cinemas</a></li>
+                        <li><a href="offers.html">Offers</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-envelope"></i> info@cinebook.com</p>
+                    <p><i class="fas fa-phone"></i> +1 234 567 8900</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 CineBook. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
